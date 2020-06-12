@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- Label 制定自动脚本的名称 -->
+  <key>Label</key>
+  <string>io.github.gallenshao.bingbg.plist</string>
+  <!-- 指定要运行的脚本 -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>{DIR}/wallpaper.command</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+        <key>Hour</key>
+        <integer>12</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>{DIR}/tmp/run.log</string>
+  <key>StandardErrorPath</key>
+  <string>{DIR}/tmp/error.log</string>
+</dict>
+</plist>

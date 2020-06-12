@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd {DIR}
+
+{PYTHON} ./bingbg.py
+osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"{DIR}/tmp/bing_image.png\""
