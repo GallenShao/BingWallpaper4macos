@@ -2,5 +2,8 @@
 
 cd {DIR}
 
+rm tmp/*.png
 {PYTHON} ./bingbg.py
-osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"{DIR}/tmp/bing_image.png\""
+image=$(ls tmp | grep png)
+
+osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"{DIR}/tmp/${image}\""

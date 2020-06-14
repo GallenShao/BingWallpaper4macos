@@ -3,6 +3,8 @@
 import re
 import urllib.request
 import time
+import random
+import string
 
 def get_bing_bg():
     url = 'https://cn.bing.com'
@@ -23,7 +25,7 @@ def download_image(url, target):
 
 if __name__ == '__main__':
     image_url = get_bing_bg()
-    target = 'tmp/bing_image.png'
+    target = 'tmp/%s.png' % ''.join(random.sample(string.ascii_letters + string.digits, 8))
     if image_url is not None:
         download_image(image_url, target)
         print('[%s] Download Success!' % time.asctime(time.localtime(time.time())))
