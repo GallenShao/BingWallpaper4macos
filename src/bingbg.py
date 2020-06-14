@@ -7,16 +7,17 @@ import random
 import string
 
 def get_bing_bg():
-    url = 'https://cn.bing.com'
-    r = urllib.request.urlopen(url)
-    result = r.read().decode('utf-8')
+    try:
+        url = 'https://cn.bing.com'
+        r = urllib.request.urlopen(url)
+        result = r.read().decode('utf-8')
 
-    pattern = '<link id="bgLink" rel="preload" href="(.*?)" as="image" />'
-    match = re.findall(pattern, result)
-    if len(match) == 0:
+        pattern = '<link id="bgLink" rel="preload" href="(.*?)" as="image" />'
+        match = re.findall(pattern, result)
+
+        return url + match[0].replace('&amp;', '&')
+    except:
         return None
-
-    return url + match[0].replace('&amp;', '&')
 
 
 def download_image(url, target):
