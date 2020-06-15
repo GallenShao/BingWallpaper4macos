@@ -8,6 +8,12 @@ path = '/'.join(current_file.split('/')[:-1]) + '/src'
 os.chdir(path)
 path = os.getcwd()
 
+try:
+	os.mkdir('tmp')
+except:
+	# FileExistsError
+	pass
+
 python3_path = os.popen('which python3').read().strip()
 
 
