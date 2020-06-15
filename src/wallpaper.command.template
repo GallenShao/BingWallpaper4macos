@@ -3,7 +3,15 @@
 cd {DIR}
 
 rm tmp/*.png &>/dev/null
-{PYTHON} ./bingbg.py
+
+if [[ -e ./tmp/run.log && `cat ./tmp/run.log | wc -l` -gt 150 ]]
+then
+	cp ./tmp/run.log ./tmp/run.log.bak
+	tail -n 100 ./tmp/run.log.bak > ./tmp/run.log
+	rm ./tmp/run.log.bak
+fi
+
+{PYTHON} ./bingbg.py >> ./tmp/run.log
 image=$(ls tmp | grep png)
 
 osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"{DIR}/tmp/${image}\""

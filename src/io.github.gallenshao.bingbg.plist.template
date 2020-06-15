@@ -86,7 +86,7 @@
     </dict>
   </array>
   <key>StandardOutPath</key>
-  <string>{DIR}/tmp/run.log</string>
+  <string>/dev/null</string>
   <key>StandardErrorPath</key>
   <string>{DIR}/tmp/error.log</string>
 </dict>
