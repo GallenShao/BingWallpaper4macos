@@ -2,7 +2,7 @@
 
 cd {DIR}
 
-rm tmp/*.png
+rm tmp/*.png &>/dev/null
 {PYTHON} ./bingbg.py
 image=$(ls tmp | grep png)
 
