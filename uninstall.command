@@ -1,19 +1,13 @@
-#!/usr/bin/env python3
+#!/bin/sh
 
-import os
-import sys
+SRC_PATH=$(cd "$(dirname "$0")";pwd)/src
 
-current_file = os.path.join(os.getcwd(), sys.argv[0])
-path = '/'.join(current_file.split('/')[:-1]) + '/src'
+echo "正在取消定时任务..."
+launchctl stop ~/Library/LaunchAgents/io.github.gallenshao.bingbg.plist
+launchctl unload -w ~/Library/LaunchAgents/io.github.gallenshao.bingbg.plist
 
-plist_path = os.path.expanduser('~/Library/LaunchAgents/io.github.gallenshao.bingbg.plist')
+echo "正在删除临时文件..."
+rm ~/Library/LaunchAgents/io.github.gallenshao.bingbg.plist
+rm ${SRC_PATH}/wallpaper.command
 
-print('正在取消定时任务...')
-os.system('launchctl stop "%s"' % plist_path)
-os.system('launchctl unload -w "%s"' % plist_path)
-
-print('正在删除临时文件...')
-os.remove(plist_path)
-os.remove(path + '/wallpaper.command')
-
-print('卸载成功')
+echo "卸载成功"

@@ -1,47 +1,24 @@
-#!/usr/bin/env python3
+#!/bin/sh
 
-import os
-import sys
+SRC_PATH=$(cd "$(dirname "$0")";pwd)/src
+PYTHON_PATH=$(which python3)
 
-current_file = os.path.join(os.getcwd(), sys.argv[0])
-path = '/'.join(current_file.split('/')[:-1]) + '/src'
-os.chdir(path)
-path = os.getcwd()
+cd $SRC_PATH
 
-try:
-	os.mkdir('tmp')
-except:
-	# FileExistsError
-	pass
+[ -d tmp ] || mkdir tmp
 
-python3_path = os.popen('which python3').read().strip()
+SRC_PATH_ENCODED=${SRC_PATH//\//\\\/}
+PYTHON_PATH_ENCODED=${PYTHON_PATH//\//\\\/}
 
+echo "正在生成配置文件..."
+sed -e "s/{DIR}/${SRC_PATH_ENCODED}/g" -e "s/{PYTHON}/${PYTHON_PATH_ENCODED}/g" wallpaper.command.template > wallpaper.command
+sed -e "s/{DIR}/${SRC_PATH_ENCODED}/g" io.github.gallenshao.bingbg.plist.template > ~/Library/LaunchAgents/io.github.gallenshao.bingbg.plist
+chmod +x wallpaper.command
 
-def generate_file(src, dst):
+echo "正在创建定时任务..."
+launchctl load -w ~/Library/LaunchAgents/io.github.gallenshao.bingbg.plist
+launchctl start ~/Library/LaunchAgents/io.github.gallenshao.bingbg.plist
+echo "定时任务启动成功"
 
-	i = open(src, 'r')
-	o = open(dst, 'w')
-
-	content = i.read()
-	content = content.replace('{DIR}', path)
-	content = content.replace('{PYTHON}', python3_path)
-	o.write(content)
-
-	i.close()
-	o.close()
-
-
-plist_path = os.path.expanduser('~/Library/LaunchAgents/io.github.gallenshao.bingbg.plist')
-exec_file_path = path + '/wallpaper.command'
-
-print('正在生成配置文件...')
-generate_file(path + '/io.github.gallenshao.bingbg.plist.template', plist_path)
-generate_file(path + '/wallpaper.command.template', exec_file_path)
-
-os.system('chmod +x %s' % exec_file_path)
-
-print('正在创建定时任务...')
-os.system('launchctl load -w "%s"' % plist_path)
-os.system('launchctl start "%s"' % plist_path)
-
-print('启动成功')
+echo "正在尝试第一次修改壁纸，请在弹窗中选择允许"
+./wallpaper.command
