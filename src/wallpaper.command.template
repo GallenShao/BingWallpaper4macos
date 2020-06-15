@@ -14,4 +14,4 @@ fi
 {PYTHON} ./bingbg.py >> ./tmp/run.log
 image=$(ls tmp | grep png)
 
-osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"{DIR}/tmp/${image}\""
+test -z $image || osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"{DIR}/tmp/${image}\""
