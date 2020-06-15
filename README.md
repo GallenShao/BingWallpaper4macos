@@ -1,4 +1,4 @@
-# bingbg
+# BingWallpaper4macos
 Bing's daily wallpaper updater for MacOS
 
 # Usage
