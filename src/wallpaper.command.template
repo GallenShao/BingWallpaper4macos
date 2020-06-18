@@ -11,7 +11,7 @@ then
 	rm ./tmp/run.log.bak
 fi
 
-{PYTHON} ./bingbg.py >> ./tmp/run.log
+./download.sh >> ./tmp/run.log
 image=$(ls tmp | grep png)
 
 test -z $image || osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"{DIR}/tmp/${image}\""

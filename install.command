@@ -1,17 +1,15 @@
 #!/bin/sh
 
 SRC_PATH=$(cd "$(dirname "$0")";pwd)/src
-PYTHON_PATH=$(which python3)
 
 cd $SRC_PATH
 
 [ -d tmp ] || mkdir tmp
 
 SRC_PATH_ENCODED=${SRC_PATH//\//\\\/}
-PYTHON_PATH_ENCODED=${PYTHON_PATH//\//\\\/}
 
 echo "正在生成配置文件..."
-sed -e "s/{DIR}/${SRC_PATH_ENCODED}/g" -e "s/{PYTHON}/${PYTHON_PATH_ENCODED}/g" wallpaper.command.template > wallpaper.command
+sed -e "s/{DIR}/${SRC_PATH_ENCODED}/g" wallpaper.command.template > wallpaper.command
 sed -e "s/{DIR}/${SRC_PATH_ENCODED}/g" io.github.gallenshao.bingbg.plist.template > ~/Library/LaunchAgents/io.github.gallenshao.bingbg.plist
 chmod +x wallpaper.command
 
